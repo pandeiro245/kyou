@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   def self.init
     project = Project.create!(name: 'KYOU', body: 'check https://ruffnote.com/pandeiro245/kyou')
     {
-      github: 'https://github.com/pandeiro245/kyou',
+      github: 'https://github.com/pandeiro245/kyou/projects/1',
       ruffnote: 'https://ruffnote.com/pandeiro245/kyou'
     }.each do |key, val|
       project.add(key, val)
