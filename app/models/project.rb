@@ -1,6 +1,10 @@
 class Project < ApplicationRecord
   has_many :project_items
-  has_many :items, through: :project_items
+  # has_many :items, through: :project_items
+
+  def items
+    project_items.map{|pi| pi.name = pi.item.name; pi.key = pi.item.key; pi}
+  end
 
   def self.init
     project = Project.create!(name: 'KYOU', body: 'check https://ruffnote.com/pandeiro245/kyou')
@@ -17,5 +21,16 @@ class Project < ApplicationRecord
     project_item.item = Item.find_by_key(key)
     project_item.value = val
     project_item.save!
+  end
+
+  def open(key)
+    url = items.select{|item| item.key == key}.first.value
+    `open #{url}`
+  end
+
+  def open_all
+    items.each do |item|
+      open(item.key)
+    end
   end
 end
